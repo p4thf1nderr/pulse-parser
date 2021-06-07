@@ -93,11 +93,11 @@ func (c *Consumer) Fetch(ch <-chan map[string][]model.Record, stop chan struct{}
 
 						if hm != nil && hm.Url != "" && hm.Description != "" && hm.Title != "" {
 							counter++
-							f, err := os.OpenFile(fmt.Sprintf("data/output/%s.txt", k), os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+							f, err := os.OpenFile(fmt.Sprintf("data/output/%s.tsv", k), os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 							if err != nil {
-								fmt.Printf("error occured:%v\n", err)
+								fmt.Printf("\nerror occured:%v\n", err)
 							}
-							f.WriteString(fmt.Sprintf("%s\\%s\\%s\n", hm.Url, hm.Title, hm.Description))
+							f.WriteString(fmt.Sprintf("%s\t%s\t%s\n", hm.Url, hm.Title, hm.Description))
 							fmt.Printf("\r %d parsed", counter)
 						}
 					}
